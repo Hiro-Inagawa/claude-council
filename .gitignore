@@ -1,0 +1,9 @@
+# Session output (lives outside the repo, in OUTPUT_FOLDER)
+*.bak
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
