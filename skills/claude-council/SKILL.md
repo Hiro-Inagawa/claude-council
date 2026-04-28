@@ -9,9 +9,9 @@ description: "Use when faced with a high-stakes decision with genuine uncertaint
 
 One AI gives one answer. The council runs your question through 5 independent analytical passes — each approaching the problem from a fundamentally different angle — then through 5 specialized review passes, audits output at two quality gates, and synthesizes a final verdict.
 
-**Shape:** 5 analytical passes → Gate 1 → 5 review passes → synthesis → Gate 2 → 2 artifacts.
+**Shape:** researcher (optional) → 5 analytical passes → Gate 1 → 5 review passes → synthesis → Gate 2 → 2 artifacts.
 
-**Cost:** 13 agent calls per session. Reserve for decisions where being wrong is expensive.
+**Cost:** 13–14 agent calls per session (14 with research pass). Reserve for decisions where being wrong is expensive.
 
 ## When to Run / When Not to Run
 
@@ -48,6 +48,21 @@ OUTPUT_FOLDER: ~/claude-council
 All sessions write to `<OUTPUT_FOLDER>/<topic-slug>/`.
 
 ## Workflow
+
+### Step 0 — Research (conditional)
+
+Run if the framed question involves: product or tool evaluation, technical stack decisions, market or ecosystem questions, best practice questions, or any decision where external evidence exists and would meaningfully ground the analytical passes.
+
+Skip if: personal decision, internal strategy with no external signal, purely subjective preference, or a question where real-world data doesn't exist.
+
+Spawn `researcher` with the framed question. Append its output to the framing prompt used in Step 3, labeled clearly:
+
+```
+## External Research Context
+[researcher output]
+```
+
+If the researcher finds nothing relevant, proceed without the brief. Do not block the pipeline on an empty search.
 
 ### Step 1 — Enrich context
 Glob and Read for `CLAUDE.md`, `memory/`, any files the user referenced. Budget: 30 seconds. Goal: give the analytical passes specific, grounded context.

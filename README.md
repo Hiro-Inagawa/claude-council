@@ -2,7 +2,7 @@
 
 A Claude Code skill that runs a high-stakes decision through 5 independent analytical passes, has them peer-reviewed by 5 differentiated reviewers, then synthesizes a verdict into two timestamped artifacts: an HTML report and a markdown transcript.
 
-13 agent calls per session. Built for decisions where being wrong is expensive.
+13–14 agent calls per session. Built for decisions where being wrong is expensive.
 
 ---
 
@@ -11,6 +11,12 @@ A Claude Code skill that runs a high-stakes decision through 5 independent analy
 ### The framing problem
 
 One AI gives one answer within one framing. The problem is not that the answer will be wrong but that there is no structural way to know whether the framing is right. A question framed one way produces an answer that cannot see what a different framing would catch.
+
+### Research grounding
+
+For questions where external evidence exists — tool comparisons, technology choices, best practices, market questions — the council runs an optional research pass before the analytical passes begin. It searches for real-world data, comparable decisions, and documented failure patterns, then shares what it finds as context that all five passes reason from.
+
+The research pass runs only when the question has something to search for. Personal decisions, internal strategy, and questions without external signal skip it.
 
 ### Five structurally distinct passes
 
@@ -59,6 +65,7 @@ The gates guard against different failure modes. Gate 1 catches input quality pr
 
 ```
 frame question
+    → research pass (optional: tool/tech/market questions)
     → 5 analytical passes (parallel)
     → Gate 1: quality check
     → write A–E mapping to disk
@@ -68,7 +75,7 @@ frame question
     → HTML report + markdown transcript
 ```
 
-The A–E mapping is written to disk before the review stage begins. In a 13-call pipeline, context compression is a real risk and writing the mapping to disk before review protects against silent failure in the synthesis step.
+The A–E mapping is written to disk before the review stage begins. In a 13–14 call pipeline, context compression is a real risk and writing the mapping to disk before review protects against silent failure in the synthesis step.
 
 ---
 
@@ -140,6 +147,7 @@ Multiple sessions on the same topic share the folder; different timestamps disti
 skills/claude-council/
 ├── SKILL.md
 ├── agents/
+│   ├── researcher.md              ← optional research pass (Step 0)
 │   ├── contrarian.md              ← Failure Analysis pass
 │   ├── first-principles-thinker.md
 │   ├── expansionist.md            ← Maximum Upside pass
