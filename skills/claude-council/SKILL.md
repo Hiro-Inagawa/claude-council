@@ -7,7 +7,7 @@ description: "Use when faced with a high-stakes decision with genuine uncertaint
 
 ## Overview
 
-One AI gives one answer. The council runs your question through 5 independent analytical passes — each approaching the problem from a fundamentally different angle — then through 5 specialized review passes, audits output at two quality gates, and synthesizes a final verdict.
+One AI gives one answer. The council runs your question through 5 independent analytical passes, each approaching the problem from a fundamentally different angle, then through 5 specialized review passes, audits output at two quality gates, and synthesizes a final verdict.
 
 **Shape:** researcher (optional) → 5 analytical passes → Gate 1 → 5 review passes → synthesis → Gate 2 → 2 artifacts.
 
@@ -24,18 +24,18 @@ One AI gives one answer. The council runs your question through 5 independent an
 
 ## The Five Analytical Passes
 
-- **Failure Analysis** — finds the specific flaw that breaks the decision under real conditions
-- **First Principles** — strips the question back to what it's actually asking
-- **Maximum Upside** — finds the upside and adjacent opportunities nobody is naming
-- **Fresh Eyes** — approaches with zero prior context; catches what familiarity hides
-- **Execution** — focuses purely on whether this can be done and what the first step is
+- **Failure Analysis:** finds the specific flaw that breaks the decision under real conditions
+- **First Principles:** strips the question back to what it's actually asking
+- **Maximum Upside:** finds the upside and adjacent opportunities nobody is naming
+- **Fresh Eyes:** approaches with zero prior context, catching what familiarity hides
+- **Execution:** focuses purely on whether this can be done and what the first step is
 
 ## Quality Gates
 
 Two audit points prevent low-quality output from propagating downstream:
 
-- **Gate 1 — Response Quality Check** (after analytical passes, before review): flags responses that are too thin or off-angle. `GATE: FAIL` = surface to user before continuing.
-- **Gate 2 — Synthesis Audit** (after synthesis, before writing artifacts): independently verifies the verdict accurately represents the inputs. `AUDIT: FAIL` = synthesis re-runs with specific corrections. One retry maximum.
+- **Gate 1: Response Quality Check** (after analytical passes, before review): flags responses that are too thin or off-angle. `GATE: FAIL` = surface to user before continuing.
+- **Gate 2: Synthesis Audit** (after synthesis, before writing artifacts): independently verifies the verdict accurately represents the inputs. `AUDIT: FAIL` = synthesis re-runs with specific corrections. One retry maximum.
 
 ## Output Folder
 
@@ -49,7 +49,7 @@ All sessions write to `<OUTPUT_FOLDER>/<topic-slug>/`.
 
 ## Workflow
 
-### Step 0 — Research (conditional)
+### Step 0: Research (conditional)
 
 Run if the framed question involves: product or tool evaluation, technical stack decisions, market or ecosystem questions, best practice questions, or any decision where external evidence exists and would meaningfully ground the analytical passes.
 
@@ -64,30 +64,30 @@ Spawn `researcher` with the framed question. Append its output to the framing pr
 
 If the researcher finds nothing relevant, proceed without the brief. Do not block the pipeline on an empty search.
 
-### Step 1 — Enrich context
+### Step 1: Enrich context
 Glob and Read for `CLAUDE.md`, `memory/`, any files the user referenced. Budget: 30 seconds. Goal: give the analytical passes specific, grounded context.
 
 If the question is too vague to frame, ask ONE clarifying question. Then proceed.
 
-### Step 2 — Frame the question + derive slug
+### Step 2: Frame the question + derive slug
 Produce a neutral framed prompt: core decision, context from user message, context from workspace, what's at stake.
 
 Self-check before proceeding: *"Is this specific enough that the passes will give non-generic output?"* If not, add more context from the workspace scan or ask one follow-up question.
 
 Derive the topic slug: 2–5 words, lowercase, hyphenated (e.g. `course-launch-decision`).
 
-### Step 3 — Spawn 5 analytical passes IN PARALLEL
+### Step 3: Spawn 5 analytical passes IN PARALLEL
 Single message, 5 Agent tool calls simultaneously. Each gets their agent file (in `agents/` subfolder), the framed question, and: "Be direct. 150–300 words. No preamble."
 
 Agents: `contrarian`, `first-principles-thinker`, `expansionist`, `outsider`, `executor`.
 
-### Step 4 — Gate 1: Response quality check
+### Step 4: Gate 1: Response quality check
 Spawn `response-quality-checker` with all 5 responses and the framed question.
 
 - `GATE: PASS` or all HIGH → proceed to Step 5
 - `GATE: FAIL` → surface the failing pass(es) to the user. Do not continue to review until resolved.
 
-### Step 5 — Write A–E mapping + partial transcript
+### Step 5: Write A–E mapping + partial transcript
 Randomly map each analytical pass → letter A–E. Immediately write the mapping and all 5 responses to the transcript file on disk:
 
 **`<OUTPUT_FOLDER>/<slug>/council-transcript-YYYY-MM-DD_HHMM.md`**
@@ -109,7 +109,7 @@ E = [Pass Name]
 
 Writing the mapping to disk before review ensures it cannot be lost or confused in a long session.
 
-### Step 6 — Spawn 5 review passes IN PARALLEL
+### Step 6: Spawn 5 review passes IN PARALLEL
 Single message, 5 Agent tool calls simultaneously. Each reviewer gets a different lens and all 5 anonymized (A–E) responses.
 
 | Agent | Lens |
@@ -120,21 +120,21 @@ Single message, 5 Agent tool calls simultaneously. Each reviewer gets a differen
 | `reviewer-devil` | Defends the weakest/most unpopular response |
 | `reviewer-integrator` | Finds synthesis opportunities between responses |
 
-### Step 7 — Synthesis
+### Step 7: Synthesis
 Single Agent call to `chairman`. Input: de-anonymized responses (names restored) + all 5 review outputs labeled by type.
 
 Synthesis produces two sections:
-1. **Analytical stances** — one-sentence summary per pass for the at-a-glance grid
-2. **Verdict** — Where Passes Agree / Clash / Blind Spots / Recommendation / One Thing First — as HTML fragments
+1. **Analytical stances:** one-sentence summary per pass for the at-a-glance grid
+2. **Verdict:** Where Passes Agree / Clash / Blind Spots / Recommendation / One Thing First, as HTML fragments
 
-### Step 8 — Gate 2: Synthesis audit
+### Step 8: Gate 2: Synthesis audit
 Spawn `chairman-auditor` with: original question, all 5 responses, all 5 reviews, and the synthesis output.
 
 - `AUDIT: PASS` → proceed to Step 9
 - `AUDIT: FLAG` → proceed, but prepend a `⚑ Audit Flags` section to the transcript
 - `AUDIT: FAIL` → synthesis re-runs with the auditor's corrections noted. One retry, then proceed regardless.
 
-### Step 9 — Write full artifacts + log
+### Step 9: Write full artifacts + log
 
 **Complete the transcript** → append to the partial file from Step 5:
 ```

@@ -1,6 +1,6 @@
 ---
 name: researcher
-description: "Pre-council research pass — gathers external context to ground the analytical passes in real-world evidence"
+description: "Pre-council research pass that gathers external context to ground the analytical passes in real-world evidence"
 model: inherit
 ---
 
@@ -18,12 +18,12 @@ Based on the framed question, identify 3–4 specific searches that would ground
 
 ## How to search
 
-Use WebSearch for discovery, then WebFetch on the most relevant results. 3–4 searches maximum. Stop when you have enough to write a grounded brief — don't exhaust the budget on diminishing returns.
+Use WebSearch for discovery, then WebFetch on the most relevant results. 3–4 searches maximum. Stop when you have enough to write a grounded brief. Don't exhaust the budget on diminishing returns.
 
 ## Output format
 
 **What the evidence found:**
-[3–5 bullet points, each a specific finding with a source or attribution. Concrete findings only — no generalizations.]
+[3–5 bullet points, each a specific finding with a source or attribution. Concrete findings only, no generalizations.]
 
 **What it implies for the framed question:**
 [2–3 sentences connecting the evidence directly to the decision at hand.]

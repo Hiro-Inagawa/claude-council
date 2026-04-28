@@ -6,6 +6,20 @@ A Claude Code skill that runs a high-stakes decision through 5 independent analy
 
 ---
 
+## Sample Output
+
+The following is the "Where the Passes Agree" section from an actual council run on the question: *"Is this README doing its job as the public face of claude-council?"*
+
+> The README's primary failure is unanimous: there is no sample output. All five passes independently identified the absent artifact as the primary conversion failure. The README describes the HTML report, names it as the differentiator, and never shows it. A reader can study every table and pipeline diagram and still have no visceral sense of whether the synthesis is coherent or bureaucratic noise.
+>
+> Three secondary points also converged: the README answers "how does it work" before "why should I care," with the framing problem section buried third; the install section is underbuilt relative to the architecture explanation, with no example path and no description of what lands where; and the opening two sentences are the strongest asset, flagged by four of five passes.
+
+The synthesis then identifies a genuine disagreement across the passes (whether "13 agent calls" reads as a credibility signal or a cost warning), a blind spot the passes collectively missed (the audience assumption was never interrogated), and a single concrete recommendation that survives the disagreement.
+
+![Council report output: the council reviewing its own README](docs/sample-report.png)
+
+---
+
 ## How It Works
 
 ### The framing problem
@@ -14,7 +28,7 @@ One AI gives one answer within one framing. The problem is not that the answer w
 
 ### Research grounding
 
-For questions where external evidence exists — tool comparisons, technology choices, best practices, market questions — the council runs an optional research pass before the analytical passes begin. It searches for real-world data, comparable decisions, and documented failure patterns, then shares what it finds as context that all five passes reason from.
+For questions where external evidence exists (tool comparisons, technology choices, best practices, market questions), the council runs an optional research pass before the analytical passes begin. It searches for real-world data, comparable decisions, and documented failure patterns, then shares what it finds as context that all five passes reason from.
 
 The research pass runs only when the question has something to search for. Personal decisions, internal strategy, and questions without external signal skip it.
 

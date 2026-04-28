@@ -22,7 +22,7 @@ course-launch-decision/council-transcript-2026-04-27_2230.md
 
 *Where the passes clash:* Price. The Failure Analysis pass says $297 is too high given competition with free YouTube content. The Maximum Upside pass says it's too low for the value. Resolution depends on how much community access is bundled.
 
-*Blind spots caught:* The Fresh Eyes pass flagged that "Claude Code" means nothing to the target buyer — every other pass assumed the audience already knows what this is.
+*Blind spots caught:* The Fresh Eyes pass flagged that "Claude Code" means nothing to the target buyer. Every other pass assumed the audience already knows what this is.
 
 *Recommendation:* Don't build the course yet. Validate with a lower-commitment offer first. Reframe entirely: sell the outcome (automate your business tasks), not the tool.
 
@@ -32,10 +32,10 @@ course-launch-decision/council-transcript-2026-04-27_2230.md
 
 ## Analytical Stance Summary Format
 
-For the `{{CONTRARIAN_STANCE}}` / `{{EXPANSIONIST_STANCE}}` etc. fields in the HTML report, write 1–2 short sentences capturing the pass's main position — not a quote, a distillation. Examples:
+For the `{{CONTRARIAN_STANCE}}` / `{{EXPANSIONIST_STANCE}}` etc. fields in the HTML report, write 1–2 short sentences capturing the pass's main position, not a quote, but a distillation. Examples:
 
 - Failure Analysis: "Market is flooded. At $297, you're competing with free YouTube content."
 - Maximum Upside: "Beginner solopreneurs are massively underserved. This could own the entry point to the whole space."
 - Fresh Eyes: "'Claude Code' means nothing to non-technical buyers. The framing needs to lead with outcomes."
-- First Principles: "What's the actual goal — revenue, authority, or building a customer base? Each requires a different product."
+- First Principles: "What's the actual goal? Revenue, authority, or building a customer base. Each requires a different product."
 - Execution: "Full course takes 4–8 weeks. Validate demand with a live workshop at $97 first."

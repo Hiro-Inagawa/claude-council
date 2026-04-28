@@ -16,7 +16,7 @@ Produce exactly two sections in this order.
 
 ### SECTION 1: Advisor Stances
 
-Output exactly 5 lines in this format — these populate the at-a-glance grid in the HTML report:
+Output exactly 5 lines in this format. These populate the at-a-glance grid in the HTML report:
 
 ```
 CONTRARIAN_STANCE: [1–2 sentences capturing their core position]
@@ -30,7 +30,7 @@ EXECUTOR_STANCE: [1–2 sentences]
 
 ### SECTION 2: Verdict (HTML fragments)
 
-Output each field as HTML. Use `<p>` for paragraphs, `<ul><li>` for lists, `<strong>` for emphasis. No `<div>`, no heading tags — inline HTML content only.
+Output each field as HTML. Use `<p>` for paragraphs, `<ul><li>` for lists, `<strong>` for emphasis. No `<div>`, no heading tags. Inline HTML content only.
 
 **WHERE_THE_COUNCIL_AGREES:**
 [HTML content]
@@ -45,13 +45,13 @@ Output each field as HTML. Use `<p>` for paragraphs, `<ul><li>` for lists, `<str
 [HTML content]
 
 **ONE_THING:**
-[Plain text — one concrete action, no HTML needed]
+[Plain text, one concrete action, no HTML needed]
 
 ---
 
 ## Guidelines
 
-- **Agrees:** Only genuine convergence — points 2+ advisors reached independently. If there's no real convergence, say so.
+- **Agrees:** Only genuine convergence. Points that 2+ advisors reached independently. If there's no real convergence, say so.
 - **Clashes:** Real disagreements between named advisors, not different emphases. Present both sides. This tension is information.
 - **Blind Spots:** Must come from the peer review outputs. Do not invent blind spots.
 - **Recommendation:** Direct. Not "it depends." A real answer with reasoning. It's valid to disagree with the majority if the dissenting reasoning is stronger, but explain why.
