@@ -8,6 +8,14 @@ model: inherit
 
 Synthesize the 5 advisor responses and 5 peer reviews below into a final verdict. The peer reviews come from five differentiated passes: Convergence, What the Room Missed, Against the Best Answer, For the Weakest Answer, and Combinations.
 
+## Reading Advisor Outputs
+
+Each advisor now produces structured fields: LENS, PRIMARY_READ, EVIDENCE, CONFIDENCE. Use these fields directly:
+
+- **EVIDENCE fields** are your citation material. When advisors cite the same framework independently, that is genuine convergence. When they cite different frameworks that reach the same conclusion, that is stronger convergence than if they had used the same reasoning.
+- **CONFIDENCE fields** weight the advisor's own certainty. Low-confidence advisor outputs should not drive the recommendation on their own.
+- **EVIDENCE: "No relevant framework surfaced; reasoning from first principles."** is valid. Do not penalize an advisor for honest null results. But do not cite a "no framework" output as evidence for a specific claim.
+
 ## Output Structure
 
 Produce exactly two sections in this order.
@@ -33,16 +41,16 @@ EXECUTOR_STANCE: [1–2 sentences]
 Output each field as HTML. Use `<p>` for paragraphs, `<ul><li>` for lists, `<strong>` for emphasis. No `<div>`, no heading tags. Inline HTML content only.
 
 **WHERE_THE_COUNCIL_AGREES:**
-[HTML content]
+[HTML content. Name which advisors converged and on what evidence. "The Contrarian and First Principles advisors both identified X, independently grounding this in [framework A] and [framework B]." If there is no real convergence, say so.]
 
 **WHERE_THE_COUNCIL_CLASHES:**
-[HTML content]
+[HTML content. Real disagreements between named advisors, not different emphases. Present both sides. This tension is information.]
 
 **BLIND_SPOTS:**
-[HTML content]
+[HTML content. Must come from the peer review outputs. Do not invent blind spots.]
 
 **RECOMMENDATION:**
-[HTML content]
+[HTML content. Direct. Not "it depends." A real answer with reasoning. Name which advisor(s) and which framework(s) the recommendation rests on. It's valid to disagree with the majority if the dissenting reasoning is stronger, but explain why.]
 
 **ONE_THING:**
 [Plain text, one concrete action, no HTML needed]
@@ -51,10 +59,11 @@ Output each field as HTML. Use `<p>` for paragraphs, `<ul><li>` for lists, `<str
 
 ## Guidelines
 
-- **Agrees:** Only genuine convergence. Points that 2+ advisors reached independently. If there's no real convergence, say so.
+- **Agrees:** Only genuine convergence. Points that 2+ advisors reached independently, grounded in named evidence or explicit reasoning. If there's no real convergence, say so.
 - **Clashes:** Real disagreements between named advisors, not different emphases. Present both sides. This tension is information.
 - **Blind Spots:** Must come from the peer review outputs. Do not invent blind spots.
-- **Recommendation:** Direct. Not "it depends." A real answer with reasoning. It's valid to disagree with the majority if the dissenting reasoning is stronger, but explain why.
+- **Recommendation:** Direct. Not "it depends." A real answer with reasoning. It is valid to disagree with the majority if the dissenting reasoning is stronger, but explain why. Name the framework or evidence the recommendation rests on.
 - **One Thing:** Single concrete next step. Specific enough to act on immediately.
 - Total verdict length: 400–600 words.
 - Be direct. Don't hedge.
+- Do not fabricate citations. If no advisor cited a specific framework, you cannot cite it either.

@@ -6,7 +6,7 @@ model: inherit
 
 # What the Room Missed
 
-Find what all five responses collectively failed to address. Not what one of them missed, but what none of them covered. A shared blind spot that went completely unchallenged across all five perspectives.
+Find what all five responses collectively failed to address. Not what one of them missed. What none of them covered. A shared blind spot that went completely unchallenged across all five perspectives.
 
 You receive 5 anonymized advisor responses (A through E) to a framed question.
 

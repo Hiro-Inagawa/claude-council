@@ -7,9 +7,9 @@ description: "Use when faced with a high-stakes decision with genuine uncertaint
 
 ## Overview
 
-One AI gives one answer. The council runs your question through 5 independent analytical passes, each approaching the problem from a fundamentally different angle, then through 5 specialized review passes, audits output at two quality gates, and synthesizes a final verdict.
+One AI gives one answer. The council runs your question through 5 independent advisors, each thinking from a fundamentally different angle, passes their responses through 5 specialized peer reviewers, audits output at two quality gates, then synthesizes a chairman's verdict.
 
-**Shape:** researcher (optional) → 5 analytical passes → Gate 1 → 5 review passes → synthesis → Gate 2 → 2 artifacts.
+**Shape:** researcher (optional) → 5 advisors → Gate 1 → 5 differentiated reviewers → chairman → Gate 2 → 2 artifacts.
 
 **Cost:** 13–14 agent calls per session (14 with research pass). Reserve for decisions where being wrong is expensive.
 
@@ -39,10 +39,8 @@ Two audit points prevent low-quality output from propagating downstream:
 
 ## Output Folder
 
-Set your output folder here. The default is `~/claude-council`. Change it to match your setup:
-
 ```
-OUTPUT_FOLDER: ~/claude-council
+OUTPUT_FOLDER: C:\Users\hiro\Projects\__COUNCIL
 ```
 
 All sessions write to `<OUTPUT_FOLDER>/<topic-slug>/`.
@@ -65,30 +63,32 @@ Spawn `researcher` with the framed question. Append its output to the framing pr
 If the researcher finds nothing relevant, proceed without the brief. Do not block the pipeline on an empty search.
 
 ### Step 1: Enrich context
-Glob and Read for `CLAUDE.md`, `memory/`, any files the user referenced. Budget: 30 seconds. Goal: give the analytical passes specific, grounded context.
+Glob and Read for `CLAUDE.md`, `memory/`, any files the user referenced. Budget: 30 seconds. Goal: give advisors specific, grounded context.
 
 If the question is too vague to frame, ask ONE clarifying question. Then proceed.
 
 ### Step 2: Frame the question + derive slug
 Produce a neutral framed prompt: core decision, context from user message, context from workspace, what's at stake.
 
-Self-check before proceeding: *"Is this specific enough that the passes will give non-generic output?"* If not, add more context from the workspace scan or ask one follow-up question.
+Self-check before proceeding: *"Is this specific enough that advisors will give non-generic advice?"* If not, add more context from the workspace scan or ask one follow-up question.
 
 Derive the topic slug: 2–5 words, lowercase, hyphenated (e.g. `course-launch-decision`).
 
-### Step 3: Spawn 5 analytical passes IN PARALLEL
-Single message, 5 Agent tool calls simultaneously. Each gets their agent file (in `agents/` subfolder), the framed question, and: "Be direct. 150–300 words. No preamble."
+### Step 3: Spawn 5 advisors IN PARALLEL
+Single message, 5 Agent tool calls simultaneously. Each gets their agent file (in `agents/` subfolder of this skill) and the framed question. Do not append additional style instructions — the agent files specify their own output contracts.
 
 Agents: `contrarian`, `first-principles-thinker`, `expansionist`, `outsider`, `executor`.
 
+Each advisor will search the vault for relevant frameworks before reasoning (tag: `council-skill`) and produce structured output: LENS / PRIMARY_READ / EVIDENCE / CONFIDENCE. Do not add extra instructions that conflict with the agent file's output contract.
+
 ### Step 4: Gate 1: Response quality check
-Spawn `response-quality-checker` with all 5 responses and the framed question.
+Spawn `response-quality-checker` with all 5 advisor responses and the framed question.
 
 - `GATE: PASS` or all HIGH → proceed to Step 5
-- `GATE: FAIL` → surface the failing pass(es) to the user. Do not continue to review until resolved.
+- `GATE: FAIL` → surface the failing advisor(s) to the user. Do not continue to peer review until resolved.
 
 ### Step 5: Write A–E mapping + partial transcript
-Randomly map each analytical pass → letter A–E. Immediately write the mapping and all 5 responses to the transcript file on disk:
+Randomly map each advisor → letter A–E. Immediately write the mapping and all 5 advisor responses to the transcript file on disk:
 
 **`<OUTPUT_FOLDER>/<slug>/council-transcript-YYYY-MM-DD_HHMM.md`**
 
@@ -107,10 +107,12 @@ E = [Pass Name]
 ...
 ```
 
-Writing the mapping to disk before review ensures it cannot be lost or confused in a long session.
+Writing the mapping to disk before peer review ensures it cannot be lost or confused in a long session.
 
-### Step 6: Spawn 5 review passes IN PARALLEL
+### Step 6: Spawn 5 peer reviewers IN PARALLEL
 Single message, 5 Agent tool calls simultaneously. Each reviewer gets a different lens and all 5 anonymized (A–E) responses.
+
+When constructing the anonymized responses, strip the `LENS:` line from each advisor response before passing to reviewers. The LENS line names the analytical angle, which would effectively de-anonymize the A–E mapping. Keep LENS in the transcript file; remove it from the reviewer input only.
 
 | Agent | Lens |
 |---|---|
@@ -166,6 +168,6 @@ Use `templates/report.html`. Fill all `{{PLACEHOLDER}}` fields with the synthesi
 YYYY-MM-DD HH:MM | <slug> | <one-sentence question summary>
 ```
 
-Create the `<slug>` subfolder and `_logs/` if they don't exist. Multiple runs on the same topic use the same folder with different timestamps.
+Create the `<slug>` subfolder if it doesn't exist. Multiple runs on the same topic use the same folder with different timestamps.
 
 See `references/naming-conventions.md` for slug rules and filename details.

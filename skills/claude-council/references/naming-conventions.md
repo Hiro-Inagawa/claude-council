@@ -27,21 +27,23 @@ council-transcript-YYYY-MM-DD_HHMM.md
 
 - Date: ISO 8601 (`2026-04-27`)
 - Time: 24-hour, no colon (`1430` = 2:30 PM)
-- Separator: underscore between date and time (sorts cleanly in file explorers)
+- Separator: underscore between date and time (sorts cleanly in Windows Explorer)
 - No spaces
 
 ## Folder Structure
 
 ```
-<OUTPUT_FOLDER>/
-├── _logs/
-│   └── sessions.md          ← one line per council run
-└── <topic-slug>/            ← auto-created per session
+C:\Users\hiro\Projects\__COUNCIL\
+├── __DOCUMENTATION\
+│   ├── README.md
+│   ├── CONVENTIONS.md
+│   └── _LOGS\
+│       ├── CHANGELOG.md     ← skill development history
+│       └── sessions.md      ← one line per council run
+└── <topic-slug>\            ← auto-created per session
     ├── council-report-YYYY-MM-DD_HHMM.html
     └── council-transcript-YYYY-MM-DD_HHMM.md
 ```
-
-`OUTPUT_FOLDER` is set in `SKILL.md`. Default: `~/claude-council`.
 
 ## Multiple Runs on Same Topic
 
@@ -49,7 +51,7 @@ Same topic, different timestamps → same `<topic-slug>` folder, different filen
 
 ## Sessions Log Format
 
-Append one line per session to `<OUTPUT_FOLDER>/_logs/sessions.md`:
+Append one line per session to `__DOCUMENTATION\_LOGS\sessions.md`:
 
 ```
 YYYY-MM-DD HH:MM | <slug> | <one-sentence question summary>
