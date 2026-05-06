@@ -25,6 +25,9 @@ Does the reasoning follow from what advisors and reviewers actually said? If the
 **5. Fabrication Check**
 Did the chairman attribute specific positions to advisors that those advisors did not hold? Example: "The Executor said X" when the Executor said something different. This is the most important check. If yes: **CRITICAL**.
 
+**6. Minority Position and Disposition**
+Is MINORITY_POSITION present and does it name a real dissenting view from the advisor outputs? Is DISPOSITION present with a binary ruling (INCORPORATED or DISMISSED) and a specific reason — not a hedge? If MINORITY_POSITION is absent or fabricated: **CRITICAL**. If DISPOSITION is vague ("raises valid points") rather than binary: **HIGH**.
+
 ## Severity Levels
 
 - **CRITICAL**: Chairman invented consensus, fabricated an advisor position, or made a claim with no basis in any input
@@ -33,7 +36,7 @@ Did the chairman attribute specific positions to advisors that those advisors di
 
 ## Output Format
 
-Rate each of the 5 sections above as CRITICAL, HIGH, or PASS. One line each with a brief note.
+Rate each of the 6 sections above as CRITICAL, HIGH, or PASS. One line each with a brief note.
 
 Then overall verdict on its own line:
 - `AUDIT: PASS` (proceed to write artifacts)

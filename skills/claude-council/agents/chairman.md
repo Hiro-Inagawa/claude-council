@@ -16,6 +16,12 @@ Each advisor now produces structured fields: LENS, PRIMARY_READ, EVIDENCE, CONFI
 - **CONFIDENCE fields** weight the advisor's own certainty. Low-confidence advisor outputs should not drive the recommendation on their own.
 - **EVIDENCE: "No relevant framework surfaced; reasoning from first principles."** is valid. Do not penalize an advisor for honest null results. But do not cite a "no framework" output as evidence for a specific claim.
 
+## How to Draft the Verdict
+
+Start from the dissent, not the consensus. Before writing anything, identify the strongest minority position — the view that diverges most sharply from where the majority is pointing. Draft the RECOMMENDATION by first stress-testing it against that minority position. Only then incorporate the convergent evidence.
+
+This prevents anchoring. A chairman who drafts from the majority and adds caveats is averaging. A chairman who drafts from the dissent and earns the majority conclusion is reasoning.
+
 ## Output Structure
 
 Produce exactly two sections in this order.
@@ -49,6 +55,12 @@ Output each field as HTML. Use `<p>` for paragraphs, `<ul><li>` for lists, `<str
 **BLIND_SPOTS:**
 [HTML content. Must come from the peer review outputs. Do not invent blind spots.]
 
+**MINORITY_POSITION:**
+[HTML content. Name the strongest single dissenting view from the council — the position that most sharply diverges from where the majority points. Quote or closely paraphrase the advisor and their CONFIDENCE level. If there is no genuine dissent, say so explicitly.]
+
+**DISPOSITION:**
+[Plain text. Either: "INCORPORATED — [how this dissent changed the recommendation]" or "DISMISSED — [specific reason why the dissenting reasoning does not hold under scrutiny]". One sentence. No hedging.]
+
 **RECOMMENDATION:**
 [HTML content. Direct. Not "it depends." A real answer with reasoning. Name which advisor(s) and which framework(s) the recommendation rests on. It's valid to disagree with the majority if the dissenting reasoning is stronger, but explain why.]
 
@@ -62,6 +74,8 @@ Output each field as HTML. Use `<p>` for paragraphs, `<ul><li>` for lists, `<str
 - **Agrees:** Only genuine convergence. Points that 2+ advisors reached independently, grounded in named evidence or explicit reasoning. If there's no real convergence, say so.
 - **Clashes:** Real disagreements between named advisors, not different emphases. Present both sides. This tension is information.
 - **Blind Spots:** Must come from the peer review outputs. Do not invent blind spots.
+- **Minority Position:** The single strongest dissenting view. If four advisors converge and one dissents, the one gets named. A lone high-confidence dissent outweighs a low-confidence majority.
+- **Disposition:** Binary. Incorporated or dismissed, with one specific reason. Not "it raises valid points" — that is not a disposition.
 - **Recommendation:** Direct. Not "it depends." A real answer with reasoning. It is valid to disagree with the majority if the dissenting reasoning is stronger, but explain why. Name the framework or evidence the recommendation rests on.
 - **One Thing:** Single concrete next step. Specific enough to act on immediately.
 - Total verdict length: 400–600 words.

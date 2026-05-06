@@ -95,6 +95,15 @@
             color: #14532d;
             line-height: 1.6;
         }
+        .box-amber {
+            background: #fffbeb;
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            font-size: 0.9rem;
+            color: #78350f;
+            line-height: 1.65;
+        }
 
         /* Analytical passes grid */
         .positions {
@@ -231,6 +240,12 @@
         <div class="verdict-section">
             <h3>Blind Spots</h3>
             <div class="vc">{{BLIND_SPOTS}}</div>
+        </div>
+
+        <div class="verdict-section">
+            <h3>Minority Position</h3>
+            <div class="box-amber">{{MINORITY_POSITION}}</div>
+            <div style="margin-top: 0.6rem; font-size: 0.85rem; color: #64748b; font-style: italic;">{{DISPOSITION}}</div>
         </div>
 
         <div class="verdict-section">
