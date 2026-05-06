@@ -60,6 +60,23 @@ The five review passes receive all analytical responses anonymized (A–E) and e
 
 The "Against" and "For" passes are the most important in this stage, because nothing escapes challenge regardless of how well-formed it looks, and no outlier gets dismissed by weight of consensus rather than by argument.
 
+### Vault-grounded reasoning
+
+Before each advisor reasons, it searches for compiled frameworks relevant to its lens. Failure Analysis looks for pre-mortem patterns, cognitive bias mechanisms, and inversion frameworks. First Principles looks for foundational models. Each advisor cites what it found or explicitly states it reasoned from first principles, making the evidence traceable rather than implied.
+
+### Structured output contracts
+
+Each advisor produces four named fields — LENS, PRIMARY_READ, EVIDENCE, CONFIDENCE — rather than free-form prose. The chairman uses CONFIDENCE to weight certainty and EVIDENCE to identify genuine convergence (two advisors independently citing different frameworks that reach the same conclusion is stronger evidence than two advisors citing the same one).
+
+### Minority position tracking
+
+Consensus suppresses correction. A chairman who drafts from the majority and adds caveats is averaging; a chairman who drafts from the dissent and earns the majority conclusion is reasoning. The synthesis requires:
+
+- **MINORITY_POSITION**: the strongest dissenting view, named with its advisor's confidence level
+- **DISPOSITION**: a binary ruling — INCORPORATED (how it changed the recommendation) or DISMISSED (the specific reason it does not hold)
+
+Gate 2 checks both fields. A missing or hedged disposition fails the audit.
+
 ### Analytical instruction over roleplay
 
 The agents use direct perspective instruction rather than identity assignment. Telling an AI "you are The Contrarian" activates theatrical behavior rather than genuine critical thinking. Telling it "approach this from the angle of failure" specifies what to think about rather than who to be, which produces sharper output.
@@ -138,7 +155,7 @@ Does not trigger on factual questions, creation tasks, or casual "should I" with
 
 Each session writes two files to `<OUTPUT_FOLDER>/<topic-slug>/`:
 
-- `council-report-YYYY-MM-DD_HHMM.html`, a self-contained HTML file with no JS dependencies. Synthesis at the top, analytical stances grid, collapsible full responses.
+- `council-report-YYYY-MM-DD_HHMM.html`, a self-contained HTML file with no JS dependencies. Synthesis at the top (including minority position and disposition), analytical stances grid, collapsible full responses.
 - `council-transcript-YYYY-MM-DD_HHMM.md`, the full session record containing the A–E mapping, all 5 analytical responses, all 5 review outputs, synthesis, and audit result.
 
 Multiple sessions on the same topic share the folder; different timestamps distinguish them.
@@ -179,7 +196,8 @@ skills/claude-council/
 │   └── report.html
 └── references/
     ├── naming-conventions.md
-    └── workflow-examples.md
+    ├── workflow-examples.md
+    └── council-knowledge-routing.md   ← framework library for vault retrieval
 ```
 
 See `skills/claude-council/SKILL.md` for the full workflow.
